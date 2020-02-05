@@ -29,7 +29,7 @@ public class Scrap
             Connection connection = Jsoup.connect(url).userAgent(USER_AGENT);
             Document htmlDocument = connection.get();
             
-            System.out.println(htmlDocument);
+          //  System.out.println(htmlDocument);
             this.htmlDocument = htmlDocument;
             if(connection.response().statusCode() == 200) 
             {

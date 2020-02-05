@@ -1,26 +1,21 @@
 package MLModel;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.ArrayList;
-
 import org.apache.spark.sql.Dataset;
+
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+
 
 public class AnalyticalModel {
 	
 
   public final static void main(String[] args) throws Exception{
 	  
-	  Logger.getLogger("org").setLevel(Level.ALL);
-		Logger.getLogger("akka").setLevel(Level.ALL);
+		Logger.getLogger("org").setLevel(Level.OFF);
+		Logger.getLogger("akka").setLevel(Level.OFF);
 
 		
 		// Create a SparkSession
@@ -47,8 +42,27 @@ public class AnalyticalModel {
 	rawUserOpportunities.show();
 	// Ignore rows having null values
 			Dataset<Row> datasetClean = rawUserOpportunities.na().drop();
-			datasetClean.show();
-			
-	
+			//datasetClean.show();
+		/*
+		 * String[] rowVal = datasetClean.toString().split(",");
+		 * 
+		 * String eligi= rowVal[3];
+		 * 
+		 * org.apache.spark.sql.Column setEligibility = datasetClean.col("Eligibility");
+		 * setEligibility = DoubleWritable(Math.pow(0.90, eligi.indexOf(eligi)));
+		 */
+		 
+		  datasetClean.show();
+			KNN_Implementation tr = new KNN_Implementation();
+			tr.getKValueandDistMetrics();
+			tr.loadtrainData("Data/opportunitiesdata.txt");
+			tr.loadtestData("Data/opportunitiesdata.txt");
+			tr.distanceCalcualte();
+						
+
   }
+
+
+			 
+
 }
